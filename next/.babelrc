@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "./babel-preset",
+    "latest",
+    "react",
+    "es2015",
+    "stage-3",
+    "stage-0"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./app", "./src"],
+    }],
+  ]
+}

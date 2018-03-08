@@ -1,0 +1,9 @@
+[submodule "common/app"]
+	path = common/app
+	url = https://github.com/sujin2f/chain-react-common
+[submodule "electron/app"]
+	path = electron/app
+	url = https://github.com/sujin2f/chain-react-common
+[submodule "next/app"]
+	path = next/app
+	url = https://github.com/sujin2f/Chain-React-Common
