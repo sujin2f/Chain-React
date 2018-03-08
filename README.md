@@ -18,6 +18,9 @@
 * [Change the Bulid Paths](#change-the-bulid-paths)
 * [Link and Redux Connect](#link-and-redux-connect)
 * [Design](#design)
+* [Persist Store](#persist-store)
+* [Routes](#routes)
+* [File Extenson](#file-extenson)
 
 ## Installation
 
@@ -221,3 +224,27 @@ export default ReduxWrapper(mapStateToProps, mapDispatchToProps, MyComponent);
 
 The favicons are in `/app/assets/images/`.
 
+## Persist Store
+
+Persistent store setting is on `/app/persistConfig.js`.
+
+```
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+  key: 'auth',
+  storage,
+};
+
+export default persistConfig;
+```
+
+## Routes
+
+Each application may use different router settings. For example, your web may start with introduction page which has a blog menu, and your desktop application's start page would be the login page. You can adjust this with each router configurations.
+
+See `common/src/router.js`, `electron/src/routes.js`, and `next/src/pages` folder.
+
+## File Extenson
+
+Your `.jsx` files should be `.js` because `next.js` supports only `.js` file extension.
