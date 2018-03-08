@@ -1,5 +1,5 @@
 {
-  "title": "Chain React"
+  "title": "Chain React",
   "paths": {
     "android": "../android/app/src/main/assets/www",
     "ios": "../ios/Pods/phonegap-ios-template/resources/www",
