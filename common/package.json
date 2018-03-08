@@ -6,6 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --open",
     "build:web": "NODE_ENV=production-web webpack --progress",
+    "build:ios": "NODE_ENV=production-ios webpack --progress",
     "build:android": "NODE_ENV=production-android webpack --progress",
     "build:phonegap": "NODE_ENV=production-phonegap webpack --progress",
     "test:lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache",

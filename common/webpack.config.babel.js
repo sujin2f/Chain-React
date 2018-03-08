@@ -30,8 +30,9 @@ const PATHS = {
   src: path.resolve(__dirname, 'src'),
   build: {
     web: path.resolve(__dirname, 'build'),
-    android: path.resolve(__dirname, '../cordova-android/app/src/main/assets/www'),
-    phonegap: path.resolve(__dirname, '../phonegap/www'),
+    android: path.resolve(__dirname, info.paths.android),
+    ios: path.resolve(__dirname, info.paths.ios),
+    phonegap: path.resolve(__dirname, info.paths.phonegap),
   },
   template: path.resolve(__dirname, 'templates'),
 };
@@ -47,9 +48,6 @@ const withJSON = function() {
 };
 
 const TARGET = process.env.BABEL_ENV = process.env.npm_lifecycle_event;
-
-console.log(config.has('process.env.CHAIN_REACT_BASE_URL'));
-console.log(config.get('process.env.CHAIN_REACT_BASE_URL'));
 
 let common = {
   entry: {
@@ -196,6 +194,32 @@ switch (TARGET) {
       parts.setupFonts([PATHS.app, PATHS.src]),
       parts.setupImages([PATHS.app, PATHS.src]),
       parts.template(path.resolve(PATHS.template, 'index-web.ejs'), info.title)
+    );
+    break;
+  case 'build:ios':
+    webpackConfig = merge.smart(
+      common,
+      {
+        devtool: 'source-map',
+        output: {
+          path: PATHS.build.ios,
+          filename: '[name].[chunkhash].js',
+          chunkFilename: '[chunkhash].js',
+        },
+      },
+      parts.clean(path.join(PATHS.build.ios, '*')),
+      parts.extractBundle({
+        name: 'vendor',
+        entries: [ 'react', 'react-dom', 'redux', 'react-redux', 'react-router', 'react-router-redux' ],
+      }),
+      parts.babel([PATHS.app, PATHS.src]),
+      // parts.uglifyjs_plugin(), // Uses the UglifyJSPlugin
+      parts.uglifyjs_loader([PATHS.app, PATHS.src]), // Uses uglify-loader
+      parts.extractCSS([PATHS.app, PATHS.src]),
+      parts.purifyCSS([PATHS.app, PATHS.src]),
+      parts.setupFonts([PATHS.app, PATHS.src]),
+      parts.setupImages([PATHS.app, PATHS.src]),
+      parts.template(path.resolve(PATHS.template, 'index-ios.ejs'), info.title)
     );
     break;
   default:
