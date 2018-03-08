@@ -1,6 +1,6 @@
 # Chain React
 
-### This project is for making Android application, Web (both server-side rendering and plain web page), and Desktop application with one [React](https://facebook.github.io/react/) code.
+### This project is for making mobile applications (Android and iOS), Web (both server-side rendering and plain web page), and Desktop application with one [React](https://facebook.github.io/react/) code.
 
 - The [Electron](http://electron.atom.io/) part of this project is based on [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
 - The persist store for [Next](https://zeit.co/blog/next5) is based on [examples-redux-persist-next](https://github.com/nickmarca/examples-redux-persist-next)
