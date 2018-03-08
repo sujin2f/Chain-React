@@ -71,7 +71,7 @@ On step 3 of the instruction, you need to install your Phongap project on the `p
 +-- next
 +-- phonegap
 |   +-- ...
-|   +-- `www`
+|   +-- www
 +-- info.json
 +-- LICENSE
 +-- README.md
@@ -101,7 +101,7 @@ $ cd common
 $ npm run build:android
 ```
 
-When you execute the [Step 3: Import the project into Android Studio](http://docs.phonegap.com/develop/1-embed-webview/android/), you will see your web view on the debug screen.
+When you execute the [Step 3: Import the project into Android Studio](http://docs.phonegap.com/develop/1-embed-webview/android/), you will see your web view on the Android simulator.
 
 ### Embedding the Webview on Xcode
 
