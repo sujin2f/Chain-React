@@ -65,7 +65,7 @@ It will start the development mode on `http://localhost:3000`.
 
 On step 3 of the instruction, you need to install your Phongap project on the `phonegap` directory in your Chain React, so your directory structure should be:
 
-.
+```
 +-- common
 +-- electron
 +-- next
@@ -75,6 +75,7 @@ On step 3 of the instruction, you need to install your Phongap project on the `p
 +-- info.json
 +-- LICENSE
 +-- README.md
+```
 
 Your React build will be placed on the `www` directory. To install your application onto the `phonegap` directory:
 
@@ -106,7 +107,7 @@ When you execute the [Step 3: Import the project into Android Studio](http://doc
 
 [Follow this instruction](http://docs.phonegap.com/develop/1-embed-webview/ios/), make the project directory to `ios`. When you make an iOS project with Xcode, the project name should be `ios`. The directory structure should be:
 
-.
+```
 +-- common
 +-- electron
 +-- next
@@ -117,6 +118,7 @@ When you execute the [Step 3: Import the project into Android Studio](http://doc
 +-- info.json
 +-- LICENSE
 +-- README.md
+```
 
 Set `pod` and make the `ViewController` to `CDVViewController`, then build the React project.
 
