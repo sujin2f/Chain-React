@@ -19,7 +19,7 @@ exports.environment = function (options) {
 exports.devServer = function (options) {
   return {
     devServer: {
-      contentBase: "public/",
+      contentBase: options.contentBase || "public/",
       // Enable history API fallback so HTML5 History API based
       // routing works. This is a good default that will come
       // in handy in more complicated setups.

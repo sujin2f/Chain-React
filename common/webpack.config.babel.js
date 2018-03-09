@@ -55,7 +55,7 @@ let common = {
     app: path.resolve(PATHS.src, 'app.js'),
   },
   output: {
-    path: PATHS.build.android,
+    path: PATHS.build.web,
     filename: '[name].js',
   },
   resolve: {
