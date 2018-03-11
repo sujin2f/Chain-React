@@ -1,5 +1,8 @@
 # Chain React
 
+* https://gradle.org/install/
+* https://github.com/phonegap/phonegap-template-react-hot-loader
+
 ### This project is for making mobile applications (Android and iOS), Web (both server-side rendering and plain web page), and Desktop application with one [React](https://facebook.github.io/react/) code.
 
 - The [Electron](http://electron.atom.io/) part of this project is based on [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)

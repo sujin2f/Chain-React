@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "./config/babel-preset",
+    "es2015",
+    "react",
+    "stage-0"
+  ],
+  "env": {
+    "start": {
+      "presets": [
+        "react-hmre"
+      ]
+    }
+  }
+}
