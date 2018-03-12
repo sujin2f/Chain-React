@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>helloworld</name>
+<widget id="com.sujinc.chaninreact" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Chain React</name>
     <description>
-    Hello World sample application using React, Webpack and Hot Reloading.
+    Make mobile apps, web, and desktop apps with one React code.
   </description>
-    <author email="support@phonegap.com" href="https://github.com/JedWatson">
-    Jed Watson and the PhoneGap Team
+    <author email="sujin.2f@google.com" href="https://sujinc.com/">
+    Sujin Choi
   </author>
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
@@ -101,7 +101,7 @@
         <allow-intent href="itms-apps:*" />
         <allow-navigation href="http://*/*" />
     </platform>
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <engine name="ios" spec="^4.5.4" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.3.3" />
     <engine name="android" spec="^7.1.0" />
+    <engine name="ios" spec="^4.5.4" />
 </widget>

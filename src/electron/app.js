@@ -6,8 +6,6 @@ import configureStore, { history } from 'store';
 
 const store = configureStore();
 
-console.log(window);
-
 render(
   <AppContainer>
     <Root store={store} history={history} />
@@ -18,6 +16,7 @@ render(
 if (module.hot) {
   module.hot.accept('./components/Root', () => {
     const NextRoot = require('./components/Root'); // eslint-disable-line global-require
+
     render(
       <AppContainer>
         <NextRoot store={store} history={history} />

@@ -1,41 +1,34 @@
 /* eslint-disable */
 import merge from 'webpack-merge';
 
-import baseConfig from './webpack.config.base';
-import devWebConfig from './webpack.config.dev.web';
-import devAndroidConfig from './webpack.config.dev.android';
-import devElectronConfig from './webpack.config.dev.electron';
+import baseConfig from './webpack-config/webpack.config.base';
 
-const TARGET = process.env.npm_lifecycle_event;
-let webpackConfig;
+import env from './lib/env';
 
-console.log(TARGET);
+let additionalConfig;
 
-switch (TARGET) {
+switch (env.TARGET) {
   case 'prepare':
   case 'dev:cordova':
   case 'emulator:android':
   case 'emulator:ios':
-    webpackConfig = merge.smart(
-      baseConfig,
-      devAndroidConfig
-    );
+    additionalConfig = require('./webpack-config/webpack.config.dev.cordova');
     break;
 
-  case 'dev:election':
-    webpackConfig = merge.smart(
-      baseConfig,
-      devElectronConfig
-    );
+  case 'start-electron-dev':
+    additionalConfig = require('./webpack-config/webpack.config.dev.electron');
+    break;
+
+  case 'build-electron-dll':
+    additionalConfig = require('./webpack-config/webpack.config.dev.electron.dll');
     break;
 
   default:
-    webpackConfig = merge.smart(
-      baseConfig,
-      devWebConfig
-    );
+    additionalConfig = require('./webpack-config/webpack.config.dev.web');
+    break;
 }
 
-console.log(TARGET);
-
-module.exports = webpackConfig;
+module.exports = merge.smart(
+  baseConfig,
+  additionalConfig.default
+);

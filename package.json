@@ -6,21 +6,20 @@
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --open",
     "dev:next": "next",
-    "dev:cordova": "node config && NODE_ENV=development-android HOST=0.0.0.0 webpack-dev-server",
+    "dev:cordova": "node lib/cordova-config && NODE_ENV=development-android HOST=0.0.0.0 webpack-dev-server --open",
     "emulator:android": "cordova run android -- --gradleArg=-PcdvMinSdkVersion=16",
     "emulator:ios": "cordova run ios",
+    "dev:electron": "cross-env START_HOT=1 node -r babel-register ./lib/scripts/CheckPortInUse.js && cross-env START_HOT=1 npm run start-electron-dev",
+    "build-electron-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --colors",
+    "start-electron-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./src/electron/main.dev",
+    "start-electron-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server",
     "build:web": "NODE_ENV=production-web webpack --progress",
     "build:ios": "NODE_ENV=production-ios webpack --progress",
     "build:android": "NODE_ENV=production-android webpack --progress",
     "build:phonegap": "node config && webpack && cordova build",
     "prepare": "node config && NODE_ENV=development-android webpack && NODE_ENV=development-android cordova prepare",
     "test:lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache",
-    "stats": "webpack --profile --json > stats.json",
-
-    "dev:election": "cross-env START_HOT=1 node -r babel-register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 npm run start-electron-dev",
-    "build-electron-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.dev.electron.dll.js --colors",
-    "start-electron-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./src/electron/main.dev",
-    "start-electron-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.dev.electron.js"
+    "stats": "webpack --profile --json > stats.json"
   },
   "author": {
     "email": "sujin.2f@google.com",
@@ -53,10 +52,10 @@
     "productName": "Chain React",
     "appId": "com.sujinc.chaninreact",
     "paths": {
-      "android": "./android/app/src/main/assets/www",
-      "ios": "./ios/Pods/phonegap-ios-template/resources/www",
-      "phonegap": "./phonegap/www",
-      "output": "./www"
+      "app": "./app",
+      "src": "./src",
+      "output": "./www",
+      "templates": "./templates"
     }
   },
   "dependencies": {
@@ -164,8 +163,8 @@
   },
   "cordova": {
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ],
     "plugins": {
       "cordova-plugin-whitelist": {}

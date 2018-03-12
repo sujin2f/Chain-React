@@ -11,12 +11,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import Routes from 'routes';
 
-type Props = {
-  store: {},
-  history: {}
-};
+class Root extends Component {
 
-export default class Root extends Component<Props> {
   render() {
     return (
       <Provider store={this.props.store}>
@@ -31,3 +27,10 @@ export default class Root extends Component<Props> {
     );
   }
 }
+
+Root.defaultProps = {
+  store: {},
+  history: {},
+};
+
+export default Root;
