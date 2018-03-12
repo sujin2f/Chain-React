@@ -13,7 +13,7 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
-// import info from '../../info';
+import env from '../../lib/env';
 
 let mainWindow = null;
 
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
 if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
   require('electron-debug')();
   const path = require('path');
-  const p = path.join(__dirname, '..', 'app', 'node_modules');
+  const p = path.join(env.PATHS.app, 'node_modules');
   require('module').globalPaths.push(p);
 }
 
@@ -65,7 +65,7 @@ app.on('ready', async () => {
     show: false,
     width: 1024,
     height: 728,
-    title: 'test'
+    title: env.PRODUCT.name
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);

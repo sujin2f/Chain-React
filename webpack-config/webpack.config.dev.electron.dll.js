@@ -15,7 +15,7 @@ CheckNodeEnv('development');
 
 const dist = path.resolve(process.cwd(), 'dll');
 
-export default merge.smart(baseConfig, {
+export default {
   context: process.cwd(),
 
   devtool: 'eval',
@@ -63,8 +63,8 @@ export default merge.smart(baseConfig, {
           path: path.resolve(process.cwd(), 'dll'),
         },
       },
-    })
+    }),
 
     new webpack.NamedModulesPlugin(),
   ],
-});
+};

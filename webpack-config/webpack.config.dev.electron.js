@@ -25,15 +25,13 @@ const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
 const dll = path.resolve(process.cwd(), 'dll');
 
-console.log('dll: ' + dll);
-
 const manifest = path.resolve(dll, 'renderer.json');
 
 /**
  * Warn if the DLL is not built
  */
 if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
-  console.log(chalk.black.bgYellow.bold('The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'));
+  console.log(chalk.black.bgYellow.bold('The DLL files are missing. Sit back while we build them for you with "npm run build-electron-dll"'));
   execSync('npm run build-electron-dll');
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "chain-react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Make mobile apps, web, and desktop apps with one React code",
   "main": "src/app.js",
   "scripts": {
