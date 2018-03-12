@@ -14,11 +14,14 @@
 **/package-lock.json
 **/yarn.lock
 **/stats.json
+**/.eslintcache
 
 # Gradle files
 **/.gradle/
 **/.idea/
-**/build/
+
+# electon
+dll/
 
 # Local configuration file (sdk path, etc)
 **/local.properties
@@ -56,7 +59,9 @@
 
 **/.DS_Store
 
-# phones
-phonegap
-android
-ios
+# Cordova platforms and plugins
+plugins
+platforms
+
+# Build
+/www/*

@@ -1,93 +1,112 @@
 # Chain React
 
+* whitelist
+* 
+
 ### This project is for making mobile applications (Android and iOS), Web (both server-side rendering and plain web page), and Desktop application with one [React](https://facebook.github.io/react/) code.
 
 - The [Electron](http://electron.atom.io/) part of this project is based on [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
 - The persist store for [Next](https://zeit.co/blog/next5) is based on [examples-redux-persist-next](https://github.com/nickmarca/examples-redux-persist-next)
+- The [Apache Cordova](https://cordova.apache.org/) part of this project is based on [phonegap-template-react-hot-loader](https://github.com/phonegap/phonegap-template-react-hot-loader)
 
 ## Table of Contents
 
 * [Installation](#isntallation)
-  * [Install the Common Directory](#install-the-common-directory)
-  * [Install the Electron Directory](#install-the-electron-directory)
-  * [Install the Next Directory](#install-the-next-directory)
-  * [Install the Phonegap](#install-the-phonegap)
+  * [Install the Apache Cordova](#install-the-apache-cordova)
+* [Running](#running)
+  * [Plain Website](#plain-website)
+  * [Server-side Rendering Website](#server-side-rendering-website)
+  * [Electron](#electron)
+  * [Android/ iOS](#android-ios)
   * [Embedding the Webview on Android Studio](#embedding-the-webview-on-android-studio)
   * [Embedding the Webview on Xcode](#embedding-the-webview-on-xcode)
-* [Change the Name](#change-the-name)
-* [Change the Bulid Paths](#change-the-bulid-paths)
-* [Link and Redux Connect](#link-and-redux-connect)
-* [Design](#design)
-* [Persist Store](#persist-store)
-* [Routes](#routes)
-* [File Extenson](#file-extenson)
+* [Configuration](#configuration)
+* [Directory Structure and Development](#directory-structure-and-development)
+  * [Link and Redux Connect](#link-and-redux-connect)
+  * [Design](#design)
+  * [Persist Store](#persist-store)
+  * [Routes](#routes)
+  * [File Extenson](#file-extenson)
 
 ## Installation
 
-In the code, there're three directories, `common`, `electron`, and `next`. `Common` directory is for the static website and mobile application. `Electron` directory is for desktop applications, and `next` directory is for server-side rendering web site. Each directory has a subdirectory named `app`. Those directories should be the same. You need to make git repository and make it as a submodule.
+First, clone the repo via git:
 
-### Install the Common Directory
-
-To install the `common` directory:
 
 ```
-$ cd common
+$ git clone --depth=1 https://github.com/sujin2f/chain-react.git your-project-name
+```
+
+And then install dependencies
+
+```
 $ npm install
+```
+
+### Install the Apache Cordova
+
+Run this to start the development webpack server
+
+```
+$ npm run dev:android
+
+or
+
+$ npm run dev:ios
+```
+
+Open it in the iOS Simulator by running (in another terminal):
+
+```
+$ cordova platform add ios
+$ npm run emulator:ios
+```
+
+Open it in the Android Simulator by running (in another terminal):
+
+```
+$ cordova platform add android
+$ cordova plugin add cordova-plugin-whitelist
+$ npm run emulator:android
+```
+
+If you get an error for Gradle setting, [follow this instruction](https://gradle.org/install/).
+
+Android emulator won't be opened by itself. You should open the emulator via Android Studio or connect your device to your computer. If you want to open the emulator on the command line, [follow this instruction](https://developer.android.com/studio/run/emulator-commandline.html).
+
+## Running
+
+### Plain Website
+
+To run the plain website:
+
+```
 $ npm start
 ```
 
-It will start the development mode on `http://localhost:8080`.
+### Server-side Rendering Website
 
-### Install the Electron Directory
-
-To install the `electron` directory:
+To run the server-side rendering website (next.js):
 
 ```
-$ cd electron
-$ npm install
-$ npm run dev
+$ npm dev:next
 ```
 
-It will start the development mode on the `Electron` application.
+### Electron
 
-### Install the Next Directory
-
-To install the `next` directory:
+To run the Electron:
 
 ```
-$ cd next
-$ npm install
-$ npm run dev
+$ npm dev:electron
 ```
 
-It will start the development mode on `http://localhost:3000`.
+### Android/ iOS
 
-### Install the Phonegap
-
-[Phonegap](https://phonegap.com/getstarted/) is for making `Android` and `iOS` mobile applications. To install the Phonegap project on Chain React, [follow the installation guide of Phonegap](https://phonegap.com/getstarted/).
-
-On step 3 of the instruction, you need to install your Phongap project on the `phonegap` directory in your Chain React, so your directory structure should be:
-
-```
-+-- common
-+-- electron
-+-- next
-+-- phonegap
-|   +-- ...
-|   +-- www
-+-- info.json
-+-- LICENSE
-+-- README.md
-```
-
-Your React build will be placed on the `www` directory. To install your application onto the `phonegap` directory:
-
-```
-$ cd common
-$ npm run build:phonegap
-```
+See the [Install the Apache Cordova](#install-the-apache-cordova) part.
 
 ### Embedding the Webview on Android Studio
+
+#### NOTE: I should update this part, but it should be helpful to implementation
 
 `Phonegap` is the good option to make cross-platform mobile application, but you can't access some Android or iOS features with it. You may need to develop on the Android Studio with React web view.
 
@@ -107,6 +126,8 @@ $ npm run build:android
 When you execute the [Step 3: Import the project into Android Studio](http://docs.phonegap.com/develop/1-embed-webview/android/), you will see your web view on the Android simulator.
 
 ### Embedding the Webview on Xcode
+
+#### NOTE: I should update this part, but it should be helpful to implementation
 
 [Follow this instruction](http://docs.phonegap.com/develop/1-embed-webview/ios/), make the project directory to `ios`. When you make an iOS project with Xcode, the project name should be `ios`. The directory structure should be:
 
@@ -129,50 +150,45 @@ Set `pod` and make the `ViewController` to `CDVViewController`, then build the R
 $ cd common
 $ npm run build:ios
 ```
-## Change the Name
 
-The default name of your applications is `Chain React`. To change this, you need to edit the `info.json` file on the root directory.
+## Configuration
+
+The default name of your applications is `Chain React`. To change this kind of configuration, you need to edit the `package.json` file on the root directory.
 
 ```
-# info.json
+# package.json
 {
-  "title": "Chain React"
-  "paths": {
-    "android": "../android/app/src/main/assets/www",
-    "ios": "../ios/Pods/phonegap-ios-template/resources/www",
-    "phonegap": "../phonegap/www"
-  }
+  ...
+  "build": {
+    "productName": "Chain React",
+    "appId": "com.sujinc.chaninreact",
+    "paths": {
+      "app": "./app",
+      "src": "./src",
+      "output": "./www",
+      "templates": "./templates"
+    }
+  },
+  ...
 }
 ```
 
-## Change the Bulid Paths
+Cordova iOS doesn't allow to change the product name on fly, to change the configurations for Cordova, edit the `config.xml` file.
 
-On the instruction above, the application name of `Phonegap`, `Android`, and `iOS` could be `phonegap`, `android`, and `ios`. To make build paths to your destination directory, you need to change the `info.json`.
+## Directory Structure and Development
 
-```
-# info.json
-{
-  "title": "Chain React"
-  "paths": {
-    "android": "../android/app/src/main/assets/www",
-    "ios": "../ios/Pods/phonegap-ios-template/resources/www",
-    "phonegap": "../phonegap/www"
-  }
-}
-```
+Every mode shares the `app` folder. This is the place your code would be. The `src` folder contains unique components, so you can set the different entry point or menu for each applications.
 
-The paths are relative paths from the `common` directory.
+### Link and Redux Connect
 
-## Link and Redux Connect
-
-Each app's configurations are different, so you should call the same location for calling different components. For example, the anchor tag `<Link />` when you use `react-router-dom`, but the link for `next.js` is from `next/link`. To solve this problem, `Chain React` made `src` directory on each sub-directories.
+Each app's configurations are different, so you should call the same location for calling different components. For example, the anchor tag `<Link />` when you use `react-router-dom`, but the link for `next.js` is from `next/link`. To solve this problem, `Chain React` has `src/[application]` directories.
 
 ```
 # Example Component
 
 import React, { Component } from 'react';
 
-import Link from 'components/Link'; // This calls /src/components/Link for each application (common, electron, and next)
+import Link from 'components/Link'; // This calls /src/[application]/components/Link
 
 class MyComponent extends Component {
   render() {
@@ -197,7 +213,7 @@ Redux `connect()` is same.
 ```
 # Example Container
 
-import ReduxWrapper from 'ReduxWrapper'; // This calls /src/ReduxWrapper for each application (common, electron, and next)
+import ReduxWrapper from 'ReduxWrapper'; // This calls /src/[application]/ReduxWrapper
 
 import MyComponent from 'components/MyComponent';
 
@@ -218,13 +234,13 @@ const mapDispatchToProps = dispatch => ({
 export default ReduxWrapper(mapStateToProps, mapDispatchToProps, MyComponent);
 ```
 
-## Design
+### Design
 
 `/app/assets/styles/app.scss` is the common `scss` file. It's already installed [Zurb Foundation](https://foundation.zurb.com/). Moreover, you can use [Material-UI](http://www.material-ui.com/) as well.
 
 The favicons are in `/app/assets/images/`.
 
-## Persist Store
+### Persist Store
 
 Persistent store setting is on `/app/persistConfig.js`.
 
@@ -239,11 +255,11 @@ const persistConfig = {
 export default persistConfig;
 ```
 
-## Routes
+### Routes
 
 Each application may use different router settings. For example, your web may start with introduction page which has a blog menu, and your desktop application's start page would be the login page. You can adjust this with each router configurations.
 
-See `common/src/router.js`, `electron/src/routes.js`, and `next/src/pages` folder.
+See `src/[application]/router.js` and `next/src/pages` folder.
 
 ## File Extenson
 
