@@ -8,7 +8,7 @@ class About extends Component {
       <section>
         <div className="row">
           <div className="columns small-12">
-            <h1>About is</h1>
+            <h1>About</h1>
             <Lorem />
           </div>
         </div>

@@ -8,10 +8,10 @@ class Home extends Component {
       <section>
         <div className="row">
           <div className="columns small-12">
-            <h1>Home Here</h1>
+            <h1>Home</h1>
             <Lorem />
 
-            1112
+            1234567890
           </div>
         </div>
       </section>

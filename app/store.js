@@ -19,15 +19,18 @@ const configureStore = (initialState = {}) => {
   middleware.push(thunk);
 
   // Logging Middleware
-  const logger = createLogger({
-    level: 'info',
-    collapsed: true,
-  });
 
   // Skip redux logs in console during the tests
-  if (process.env.NODE_ENV !== 'test') {
+  if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development-android') {
+    const logger = createLogger({
+      level: 'info',
+      collapsed: true,
+    });
+
     middleware.push(logger);
   }
+
+  console.log(process.env.NODE_ENV);
 
   // Router Middleware
   const router = routerMiddleware(history);

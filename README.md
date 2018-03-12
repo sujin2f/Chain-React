@@ -1,5 +1,6 @@
 # Chain React
 
+* whitelist
 * https://gradle.org/install/
 * https://github.com/phonegap/phonegap-template-react-hot-loader
 

@@ -19,7 +19,9 @@
 # Gradle files
 **/.gradle/
 **/.idea/
-**/build/
+
+# electon
+dll/
 
 # Local configuration file (sdk path, etc)
 **/local.properties
@@ -60,3 +62,6 @@
 # Cordova platforms and plugins
 plugins
 platforms
+
+# Build
+/www/*
