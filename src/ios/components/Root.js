@@ -9,10 +9,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import Routes from 'router';
+import Routes from 'routes';
 
-class Root extends Component {
-
+export default class Root extends Component {
   render() {
     return (
       <Provider store={this.props.store}>
@@ -27,10 +26,3 @@ class Root extends Component {
     );
   }
 }
-
-Root.defaultProps = {
-  store: {},
-  history: {},
-};
-
-export default Root;

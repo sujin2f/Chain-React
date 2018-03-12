@@ -9,7 +9,8 @@ let additionalConfig;
 
 switch (env.TARGET) {
   case 'prepare':
-  case 'dev:cordova':
+  case 'dev:android':
+  case 'dev:ios':
   case 'emulator:android':
   case 'emulator:ios':
     additionalConfig = require('./webpack-config/webpack.config.dev.cordova');
