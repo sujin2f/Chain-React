@@ -8,7 +8,7 @@
 
 ## Table of Contents
 
-* [Installation](#isntallation)
+* [Installation](#installation)
   * [Install the Apache Cordova](#install-the-apache-cordova)
 * [Running](#running)
   * [Plain Website](#plain-website)
@@ -258,6 +258,6 @@ Each application may use different router settings. For example, your web may st
 
 See `src/[application]/router.js` and `next/src/pages` folder.
 
-## File Extenson
+### File Extenson
 
 Your `.jsx` files should be `.js` because `next.js` supports only `.js` file extension.

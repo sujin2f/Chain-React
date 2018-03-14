@@ -18,7 +18,7 @@
     "build:ios": "NODE_ENV=production-ios webpack --progress",
     "build:android": "NODE_ENV=production-android webpack --progress",
     "build:phonegap": "node config && webpack && cordova build",
-    "prepare": "node config && NODE_ENV=development-android webpack && NODE_ENV=development-android cordova prepare",
+    "prepare": "node lib/cordova-config && NODE_ENV=development-android webpack && NODE_ENV=development-android cordova prepare",
     "test:lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache",
     "stats": "webpack --profile --json > stats.json"
   },
@@ -108,7 +108,7 @@
     "react-timeout": "^1.0.1",
     "react-tooltip": "^3.3.1",
     "redux": "^3.7.2",
-    "redux-auth-wrapper": "^0.8.0",
+    "redux-auth-wrapper": "^2.0.2",
     "redux-axios-middleware": "^3.0.0",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
