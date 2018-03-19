@@ -5,7 +5,13 @@ import NextLink from 'next/link';
 class Link extends Component {
   render() {
     return (
-      <NextLink href={this.props.href}><a>{this.props.children}</a></NextLink>
+      <NextLink
+        href={this.props.href}
+        id={this.props.id}
+        className={this.props.className}
+      >
+        <a>{this.props.children}</a>
+      </ReactLink>
     );
   }
 }

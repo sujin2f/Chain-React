@@ -37,6 +37,7 @@ $ git clone --depth=1 https://github.com/sujin2f/chain-react.git your-project-na
 And then install dependencies
 
 ```
+$ cd your-project-name
 $ npm install
 ```
 
@@ -170,7 +171,7 @@ The default name of your applications is `Chain React`. To change this kind of c
 }
 ```
 
-Cordova iOS doesn't allow to change the product name on fly, to change the configurations for Cordova, edit the `config.xml` file.
+Cordova iOS doesn't allow to change the product name on fly, to change the configurations for Cordova, edit the `config.xml` file and remove and re-install this as the error message shows.
 
 ## Directory Structure and Development
 
