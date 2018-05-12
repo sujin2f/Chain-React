@@ -1,5 +1,5 @@
 import WebpackAssetsManifest from 'webpack-assets-manifest';
-import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
+// import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 
 const merge = require('webpack-merge');
 const path = require('path');
@@ -22,7 +22,7 @@ let webpackConfig = {
       debug: true
     }),
 
-    new HtmlWebpackInlineSourcePlugin(),
+//     new HtmlWebpackInlineSourcePlugin(),
 
     new webpack.HotModuleReplacementPlugin()
   ],

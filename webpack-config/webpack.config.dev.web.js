@@ -5,7 +5,7 @@ import path from 'path';
 
 import WebpackAssetsManifest from 'webpack-assets-manifest';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
-import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
+// import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 
 import config from 'config';
 import { build } from '../package.json';
@@ -42,7 +42,7 @@ let webpackConfig = {
       debug: true
     }),
 
-    new HtmlWebpackInlineSourcePlugin(),
+//     new HtmlWebpackInlineSourcePlugin(),
 
     new webpack.HotModuleReplacementPlugin()
   ],
