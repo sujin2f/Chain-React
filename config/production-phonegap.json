@@ -1,0 +1,7 @@
+{
+  "process": {
+    "env": {
+      "CHAIN_REACT_BASE_URL": "/"
+    }
+  }
+}

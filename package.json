@@ -1,0 +1,102 @@
+{
+  "name": "chain-react",
+  "version": "2.0.0",
+  "description": "Make mobile apps, web, and desktop apps with one React code",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "NODE_ENV=development webpack-dev-server --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "email": "sujin.2f@google.com",
+    "name": "Sujin Choi",
+    "url": "http://sujinc.com"
+  },
+  "bugs": {
+    "url": "https://github.com/sujin2f/chain-react/issues"
+  },
+  "keywords": [
+    "electron",
+    "boilerplate",
+    "react",
+    "redux",
+    "flow",
+    "sass",
+    "webpack",
+    "hot",
+    "reload",
+    "android",
+    "phonegap"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sujin2f/chain-react.git"
+  },
+  "private": false,
+  "license": "MIT",
+  "config": {
+    "productName": "Chain React",
+    "appId": "com.sujinc.chaninreact",
+    "paths": {
+      "app": "./app",
+      "src": "./src",
+      "output": "./build",
+      "templates": "./templates"
+    }
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react",
+      "stage-0"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "config": "^1.30.0",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-webpack": "^0.9.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.1",
+    "foundation-sites": "^6.4.4-rc1",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.9.0",
+    "path": "^0.12.7",
+    "postcss-loader": "^2.1.5",
+    "redux-devtools": "^3.4.1",
+    "redux-devtools-dock-monitor": "^1.1.3",
+    "redux-devtools-log-monitor": "^1.4.0",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.8.2",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4",
+    "webpack-merge": "^4.1.2"
+  },
+  "dependencies": {
+    "history": "^4.7.2",
+    "material-ui": "^0.20.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-hot-loader": "^4.1.3",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "redux": "^3.7.2",
+    "redux-form": "^7.3.0",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.9.1",
+    "redux-thunk": "^2.2.0"
+  }
+}
