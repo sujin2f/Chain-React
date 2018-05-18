@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import configureStore, { history } from 'store';
+import configureStore, { history } from 'app/store';
 import { AppContainer } from 'react-hot-loader';
 
 import Root from 'src/components/Root';

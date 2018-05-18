@@ -3,11 +3,12 @@
   "version": "2.0.0",
   "description": "Make mobile apps, web, and desktop apps with one React code",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --open",
+    "bundle-analyzer": "npm run run:stats && npm run run:bundle-analyzer",
     "ssr:dev": "webpack --watch --progress & nodemon src/ssr/server.js",
-    "ssr:build": "NODE_ENV=production webpack & nodemon src/ssr/server.js",
-    "stats": "NODE_ENV=production webpack --profile --json > stats.json",
-    "bundle-analyzer": "NODE_ENV=production webpack-bundle-analyzer stats.json",
+    "ssr:build": "NODE_ENV=production webpack --progress & nodemon src/ssr/server.js",
+    "start": "NODE_ENV=development webpack-dev-server --open",
+    "run:bundle-analyzer": "NODE_ENV=production webpack-bundle-analyzer stats.json",
+    "run:stats": "NODE_ENV=production webpack --profile --json > stats.json",
     "precommit": "eslint src --quiet"
   },
   "author": {
@@ -60,6 +61,7 @@
     "config": "^1.30.0",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
+    "del": "^3.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-import-resolver-webpack": "^0.9.0",
@@ -73,7 +75,6 @@
     "foundation-sites": "^6.4.4-rc1",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^3.2.0",
-    "image-webpack-loader": "^4.2.0",
     "node-sass": "^4.9.0",
     "nodemon": "^1.17.2",
     "path": "^0.12.7",

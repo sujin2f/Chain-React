@@ -1,22 +1,23 @@
 import express from 'express';
 import compression from 'compression';
 import path from 'path';
-
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import Helmet from 'react-helmet';
+import extendRequire from 'isomorphic-loader/lib/extend-require';
+
 import routes from 'src/components/routes';
 import App from 'src/components/App';
-
-// import Favicon from 'app/assets/images/favicon-32x32.png';
 
 import configureStore, { initializeSession } from './store';
 
 const app = express();
+// const imagePath = path.resolve(__dirname, '../../../', process.env.npm_package_config_paths_app, 'assets', 'images');
 
 app.use(compression());
+// app.use(imagePath, express.static('images'));
 app.use(express.static(path.resolve(__dirname, '../../../', process.env.npm_package_config_paths_output)));
 
 app.get('/*', (req, res) => {
@@ -56,9 +57,11 @@ function htmlTemplate(reactDom, reduxState, helmetData) {
     <!DOCTYPE html>
     <html>
     <head>
-      <meta charset="utf-8">
+      <meta charset="utf-8" />
       ${helmetData.title.toString()}
       ${helmetData.meta.toString()}
+      ${helmetData.link.toString()}
+
       <title>React SSR</title>
     </head>
 

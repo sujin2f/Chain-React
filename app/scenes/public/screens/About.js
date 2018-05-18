@@ -10,6 +10,7 @@ class About extends Component {
           <div className="columns small-12">
             <h1>About</h1>
             <Lorem />
+            <img src="/images/favicon-32x32.png" alt="Favicon" />
           </div>
         </div>
       </section>

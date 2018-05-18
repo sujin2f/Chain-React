@@ -1,13 +1,136 @@
 /* eslint-disable */
 import path from 'path';
 import webpack from 'webpack';
+import config from 'config';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import WebpackAssetsManifest from 'webpack-assets-manifest';
+import CompressionPlugin from 'compression-webpack-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 
-// const CleanWebpackPlugin = require('clean-webpack-plugin'); // For clearing the build directory
-// const ExtractTextPlugin = require('extract-text-webpack-plugin'); // Pulls CSS out of Components into their own chunk
-// const PurifyCSSPlugin = require('purifycss-webpack');
-// const autoprefixer = require('autoprefixer');
-// const flexibility = require('postcss-flexibility');
+const dev = process.env.NODE_ENV !== "production";
+
+exports.setupBase = function() {
+  return {
+    mode: dev ? 'development' : 'production',
+    devtool: dev ? 'none' : 'inline-source-map',
+    cache: !dev,
+    output: {
+      path: path.resolve(__dirname, '../', process.env.npm_package_config_paths_output),
+      filename: '[name].bundle.js'
+    },
+    plugins: [
+      new webpack.EnvironmentPlugin({
+        NODE_ENV: process.env.NODE_ENV
+      }),
+        new webpack.DefinePlugin({
+        'process.env': {
+          'CHAIN_REACT_BASE_URL': config.has('process.env.CHAIN_REACT_BASE_URL')
+            ? JSON.stringify(config.get('process.env.CHAIN_REACT_BASE_URL'))
+            : JSON.stringify("")
+        }
+      }),
+    ],
+  }
+};
+
+exports.setupMinimize = function() {
+  return {
+    plugins: [
+      new webpack.optimize.ModuleConcatenationPlugin(),
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new CompressionPlugin({
+          asset: '[path].gz[query]',
+          minify: true,
+          algorithm: 'gzip',
+          test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+          threshold: 10240,
+          minRatio: 0.8
+      }),
+      new WebpackAssetsManifest({
+        writeToDisk: true,
+        sortManifest: false
+      }),
+    ],
+    optimization: {
+      minimizer: [
+        // we specify a custom UglifyJsPlugin here to get source maps in production
+        new UglifyJsPlugin({
+          cache: !dev,
+          parallel: true,
+          uglifyOptions: {
+            compress: true,
+            ecma: 6,
+            mangle: true
+          },
+          sourceMap: dev
+        })
+      ]
+    }
+  };
+};
+
+exports.setupFriendlyErrors = function() {
+  return {
+    plugins: [
+      new FriendlyErrorsWebpackPlugin(),
+    ],
+  }
+};
+
+exports.setupNoEmit = function() {
+  return {
+    plugins: [
+      new webpack.NoEmitOnErrorsPlugin(),
+    ],
+  }
+};
+
+exports.setupLoaderOptions = function() {
+  return {
+    plugins: [
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: dev,
+      }),
+    ],
+  }
+};
+
+exports.setupHotReplace = function() {
+  return {
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+    ],
+  }
+};
+
+exports.setupFavicon = function(logo) {
+  return {
+    plugins: [
+      new FaviconsWebpackPlugin({
+        logo,
+        prefix: 'icons-[hash]/',
+        emitStats: false,
+        title: process.env.npm_package_config_productName,
+        icons: {
+          android: false,
+          appleIcon: false,
+          appleStartup: false,
+          coast: false,
+          favicons: true,
+          firefox: false,
+          opengraph: true,
+          twitter: true,
+          yandex: false,
+          windows: false
+        },
+      }),
+    ]
+  }
+};
 
 exports.setupEntries = function(paths) {
   return {
@@ -119,270 +242,35 @@ exports.setupCSS = function (paths) {
       rules: [{
         test: /\.s?css$/,
         use: [
-          { loader: 'style-loader', options: { sourceMap: true } },
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'postcss-loader', options: { sourceMap: true, plugins: () => [require('autoprefixer')] } },
-          { loader: 'sass-loader', options: { sourceMap: true } }
+          { loader: 'style-loader', options: { sourceMap: dev } },
+          { loader: 'css-loader', options: { sourceMap: dev } },
+          { loader: 'postcss-loader', options: { sourceMap: dev, plugins: () => [require('autoprefixer')] } },
+          { loader: 'sass-loader', options: { sourceMap: dev } }
         ],
       }]
     }
   };
 };
 
-exports.setupFonts = function (paths) {
+exports.setupFonts = function (from) {
   return {
-    module: {
-      rules: [
-        // WOFF Font
-        {
-          test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-          use: {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              mimetype: 'application/font-woff',
-            }
-          },
-          include: paths
-        },
-        // WOFF2 Font
-        {
-          test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-          use: {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              mimetype: 'application/font-woff',
-            }
-          },
-          include: paths
-        },
-        // TTF Font
-        {
-          test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-          use: {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              mimetype: 'application/octet-stream'
-            }
-          },
-          include: paths
-        },
-        // EOT Font
-        {
-          test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-          use: 'file-loader',
-        },
-        // SVG Font
-        {
-          test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-          use: {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              mimetype: 'image/svg+xml',
-            }
-          },
-          include: paths
-        },
-      ]
-    }
+    plugins: [
+      new CopyWebpackPlugin([{
+        from,
+        to: path.resolve(__dirname, '../', process.env.npm_package_config_paths_output, 'fonts'),
+      }]),
+    ],
   };
 };
 
 // Compress Images
-exports.setupImages = function (paths) {
-  return {
-    module: {
-      rules: [{
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: [
-          'file-loader',
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              mozjpeg: {
-                progressive: true,
-                quality: 65
-              },
-              // optipng.enabled: false will disable optipng
-              optipng: {
-                enabled: false,
-              },
-              pngquant: {
-                quality: '65-90',
-                speed: 4
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              // the webp option will enable WEBP
-              webp: {
-                quality: 75
-              }
-            }
-          }
-        ],
-        include: paths
-      }]
-    }
-  }
-};
-
-/*
-exports.environment = function (options) {
+exports.setupImages = function (from) {
   return {
     plugins: [
-      new webpack.DefinePlugin({...options}),
-    ]
-  }
-};
-
-// Embed Fonts
-
-
-
-// Extracts CSS from within modules into a separate CSS file
-// Helps to combat FOUT since bundled CSS would have to wait for the JS to run before being applied
-// Only used in Production
-exports.extractCSS = function (paths) {
-  return {
-    module: {
-      loaders: [
-        // Extract CSS during build
-        {
-          test: /\.s?css$/,
-          loader: ExtractTextPlugin.extract('style', ['css', 'postcss', 'sass']),
-          include: paths
-        }
-      ]
-    },
-    postcss: [ autoprefixer({ browsers: ['last 2 versions'] }), flexibility ],
-    plugins: [
-      // Output extracted CSS to a file
-      new ExtractTextPlugin('[name].[chunkhash].css')
-    ]
+      new CopyWebpackPlugin([{
+        from,
+        to: path.resolve(__dirname, '../', process.env.npm_package_config_paths_output, 'images'),
+      }]),
+    ],
   };
 };
-
-// Removes unused CSS rules
-exports.purifyCSS = function (paths) {
-  const pathsArr = ('string' === typeof paths) ? [paths] : [...paths];
-  return {
-    plugins: [
-      new PurifyCSSPlugin({
-        basePath: process.cwd(),
-        // `paths` is used to point PurifyCSS to files not
-        // visible to Webpack. You can pass glob patterns
-        // to it.
-        paths: pathsArr
-      }),
-    ]
-  }
-};
-
-
-// Minification using the UglifyJS package that's part of Webpack
-exports.uglifyjs_plugin = function () {
-  return {
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        // Don't beautify output (enable for neater output)
-        beautify: false,
-        // Eliminate comments
-        comments: false,
-        // Compression specific options
-        compress: {
-          warnings: false,
-          // Drop `console` statements
-          drop_console: true
-        },
-        // Mangling specific options
-        mangle: {
-          // Don't mangle $
-          except: ['$'],
-          // Don't care about IE8
-          screw_ie8: true,
-          // Don't mangle function names
-          keep_fnames: true
-        }
-      })
-    ]
-  };
-};
-
-
-exports.uglifyjs_loader = function (paths) {
-  return {
-    module: {
-      loaders: [
-        {
-          // I want to uglify with mangling only app files, not thirdparty libs
-          test: /\.jsx?$/,
-          include: paths,
-          exclude: /.spec.js/, // excluding .spec files
-          loader: "uglify"
-        }
-      ]
-    },
-    'uglify-loader': {
-      mangle: false
-    }
-  };
-};
-
-
-// Splits the bundle into manageable chunks allowing us to create chunk files that don't change (like React core)
-// while allowing us to rebuild and replace parts that do change like our app code itself
-// Supports caching via manifest files. We only update the chunks that have changed and can preserve the other chunks in cache.
-exports.extractBundle = function (options) {
-  const entry = {};
-  entry[options.name] = options.entries;
-
-  return {
-    // Define an entry point needed for splitting.
-    entry: entry,
-    plugins: [
-      // Extract bundle and manifest files. Manifest is
-      // needed for reliable caching.
-      new webpack.optimize.CommonsChunkPlugin({
-        names: [options.name, 'manifest']
-      })
-    ]
-  };
-};
-
-// Cleans contents of path
-// Usage 1: parts.clean(paths.join(PATHS.build, '*')) // Removes everything except for dotfiles from build directory
-// Usage 2: parts.clean(PATHS.build) // Removes everything from build directory
-exports.clean = function (path) {
-  return {
-    plugins: [
-      new CleanWebpackPlugin([path], {
-        // Without `root` CleanWebpackPlugin won't point to our
-        // project and will fail to work.
-        root: process.cwd()
-      })
-    ]
-  };
-};
-
-
-// Babel
-// Check .babelrc for full config options
-//
-exports.babel = function () {
-  return {
-    module: {
-      rules: [
-        {
-          test: /\.jsx?$/,
-          exclude: /node_modules/,
-          loader: "babel-loader",
-        }
-      ]
-    },
-  };
-};
-*/
