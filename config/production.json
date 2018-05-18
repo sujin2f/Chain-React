@@ -1,0 +1,12 @@
+{
+  "process": {
+    "env": {
+      "CHAIN_REACT_BASE_URL": "/"
+    }
+  },
+  "webpack": {
+    "output": {
+      "publicPath": "http://your-damain.com"
+    }
+  }
+}

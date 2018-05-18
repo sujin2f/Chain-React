@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import TopBarContainer from 'containers/public/layout/TopBarContainer';
+
+import TopBarContainer from 'app/containers/public/layout/TopBarContainer';
 
 class Public extends Component {
   render() {

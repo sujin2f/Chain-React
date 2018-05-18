@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-
-import NextLink from 'next/link';
+import { Link as ReactLink } from 'react-router-dom';
 
 class Link extends Component {
   render() {
     return (
-      <NextLink
-        href={this.props.href}
+      <ReactLink
+        to={this.props.href}
         id={this.props.id}
         className={this.props.className}
+        title={this.props.title}
       >
-        <a>{this.props.children}</a>
+        {this.props.children}
       </ReactLink>
     );
   }

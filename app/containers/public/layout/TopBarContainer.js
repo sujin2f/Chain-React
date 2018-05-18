@@ -1,13 +1,13 @@
-import ReduxWrapper from 'ReduxWrapper';
+import ReduxWrapper from 'src/ReduxWrapper';
 
-import TopBar from 'components/public/layout/TopBar';
+import TopBar from 'app/components/public/layout/TopBar';
 
 import {
   login,
   logout,
-} from 'actions/auth';
+} from 'app/actions/auth';
 
-import { clearForm } from 'actions/forms/loginForm';
+import { clearForm } from 'app/actions/forms/loginForm';
 
 const mapStateToProps = state => ({
   userId: state.auth.userId,

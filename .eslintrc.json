@@ -20,7 +20,11 @@
     "linebreak-style": "off",
     "react/jsx-filename-extension": "off",
     "jsx-a11y/no-static-element-interactions": "off",
-    "max-len": [2, 300, 2]
+    "max-len": [2, 100, 2],
+    "jsx-a11y/anchor-is-valid": ["error", {
+      "components": [ "Link" ],
+      "specialLink": [ "to" ]
+    }]
   },
   "settings": {
     "import/resolver": {

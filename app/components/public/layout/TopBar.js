@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Link from 'components/Link';
-import DialogLogin from 'components/public/common/DialogLogin';
+import Link from 'src/components/Link';
+import DialogLogin from 'app/components/public/common/DialogLogin';
 
 class TopBar extends Component {
   constructor(props) {

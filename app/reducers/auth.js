@@ -1,7 +1,7 @@
 import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
-} from 'actions/auth';
+} from 'app/actions/auth';
 
 const initialState = {
 };

@@ -3,11 +3,11 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 
 // Scenes
-import Public from 'scenes/public';
+import Public from 'app/scenes/public';
 
 // Screens
-import Home from 'scenes/public/screens/Home';
-import About from 'scenes/public/screens/About';
+import Home from 'app/scenes/public/screens/Home';
+import About from 'app/scenes/public/screens/About';
 
 export default () => (
   <Public>

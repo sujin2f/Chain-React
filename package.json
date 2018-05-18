@@ -2,10 +2,13 @@
   "name": "chain-react",
   "version": "2.0.0",
   "description": "Make mobile apps, web, and desktop apps with one React code",
-  "main": "src/app.js",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ssr:dev": "webpack --watch --progress & nodemon src/ssr/server.js",
+    "ssr:build": "NODE_ENV=production webpack & nodemon src/ssr/server.js",
+    "stats": "NODE_ENV=production webpack --profile --json > stats.json",
+    "bundle-analyzer": "NODE_ENV=production webpack-bundle-analyzer stats.json",
+    "precommit": "eslint src --quiet"
   },
   "author": {
     "email": "sujin.2f@google.com",
@@ -44,22 +47,18 @@
       "templates": "./templates"
     }
   },
-  "babel": {
-    "presets": [
-      "env",
-      "react",
-      "stage-0"
-    ]
-  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
+    "babel-plugin-module-resolver": "^3.1.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.24.1",
+    "compression-webpack-plugin": "^1.1.11",
     "config": "^1.30.0",
+    "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -68,9 +67,15 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.1",
+    "express": "^4.16.3",
+    "favicons-webpack-plugin": "0.0.9",
+    "file-loader": "^1.1.11",
     "foundation-sites": "^6.4.4-rc1",
+    "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.2.0",
     "node-sass": "^4.9.0",
+    "nodemon": "^1.17.2",
     "path": "^0.12.7",
     "postcss-loader": "^2.1.5",
     "redux-devtools": "^3.4.1",
@@ -78,16 +83,24 @@
     "redux-devtools-log-monitor": "^1.4.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
-    "webpack": "^4.8.2",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.8.3",
+    "webpack-assets-manifest": "^3.0.1",
+    "webpack-bundle-analyzer": "^2.12.0",
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4",
-    "webpack-merge": "^4.1.2"
+    "webpack-merge": "^4.1.2",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "compression": "^1.7.2",
     "history": "^4.7.2",
     "material-ui": "^0.20.0",
+    "memory-fs": "^0.4.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.1.3",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
@@ -97,6 +110,17 @@
     "redux-form": "^7.3.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.9.1",
-    "redux-thunk": "^2.2.0"
-  }
+    "redux-thunk": "^2.2.0",
+    "require-from-string": "^2.0.2"
+  },
+  "bundlesize": [
+    {
+      "path": "./build/js/app.bundle.js",
+      "maxSize": "170 kB"
+    },
+    {
+      "path": "./build/js/lib.bundle.js",
+      "maxSize": "110 kB"
+    }
+  ]
 }

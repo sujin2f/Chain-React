@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Lorem from 'components/public/common/Lorem';
+import Lorem from 'app/components/public/common/Lorem';
 
 class About extends Component {
   render() {

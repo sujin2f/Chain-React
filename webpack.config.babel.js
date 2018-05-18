@@ -8,41 +8,28 @@ let additionalConfig;
 switch (process.env.npm_lifecycle_event) {
   case 'start':
     additionalConfig = require('./webpack-config/webpack.config.dev.web');
+
+    module.exports = merge.smart(
+      baseConfig,
+      additionalConfig.default
+    );
     break;
+
+  case 'ssr:dev':
+  case 'ssr:build':
+    additionalConfig = require('./webpack-config/webpack.config.production.ssr');
+
+    module.exports = merge.smart(
+      additionalConfig.default
+    );
+    break;
+
+  case 'stats':
+  case 'bundle-size-analyzer':
+    additionalConfig = require('./webpack-config/webpack.config.stats');
+
+    module.exports = merge.smart(
+      baseConfig,
+      additionalConfig.default
+    );
 }
-
-/*
-
-
-import env from './lib/env';
-
-let additionalConfig;
-
-switch (process.env.npm_lifecycle_event) {
-  case 'prepare':
-  case 'dev:android':
-  case 'dev:ios':
-  case 'emulator:android':
-  case 'emulator:ios':
-    additionalConfig = require('./webpack-config/webpack.config.dev.cordova');
-    break;
-
-  case 'start-electron-dev':
-    additionalConfig = require('./webpack-config/webpack.config.dev.electron');
-    break;
-
-  case 'build-electron-dll':
-    additionalConfig = require('./webpack-config/webpack.config.dev.electron.dll');
-    break;
-
-  default:
-    additionalConfig = require('./webpack-config/webpack.config.dev.web');
-    break;
-}
-
-*/
-
-module.exports = merge.smart(
-  baseConfig,
-  additionalConfig.default
-);

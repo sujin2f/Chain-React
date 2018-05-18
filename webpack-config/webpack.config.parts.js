@@ -1,8 +1,7 @@
 /* eslint-disable */
-
-const webpack = require('webpack');
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 // const CleanWebpackPlugin = require('clean-webpack-plugin'); // For clearing the build directory
 // const ExtractTextPlugin = require('extract-text-webpack-plugin'); // Pulls CSS out of Components into their own chunk
@@ -10,7 +9,58 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const autoprefixer = require('autoprefixer');
 // const flexibility = require('postcss-flexibility');
 
-exports.devServer = function (options) {
+exports.setupEntries = function(paths) {
+  return {
+    entry: paths,
+  }
+};
+
+exports.setupResolves = function(paths) {
+  return {
+    resolve: {
+      extensions: ['.js', '.jsx', '.json'],
+      alias: paths,
+    },
+  }
+};
+
+exports.setupLint = function(include) {
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.(jsx?)$/,
+          enforce: "pre",
+          use: [{
+            loader: 'eslint-loader',
+          }],
+          include,
+        },
+      ]
+    },
+  }
+};
+
+exports.setupBabel = function(include) {
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.(jsx?)$/,
+          use: [{
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
+          }],
+          include,
+        }
+      ]
+    },
+  }
+};
+
+exports.setupDevServer = function(options) {
   return {
     devServer: {
       contentBase: options.contentBase || false,
@@ -45,7 +95,7 @@ exports.devServer = function (options) {
 };
 
 // Template
-exports.template = function (template, title, filename, favicon = false) {
+exports.setupTemplate = function (template, title, filename, favicon = false) {
   return {
     plugins: [
       new HtmlWebpackPlugin({
@@ -78,17 +128,6 @@ exports.setupCSS = function (paths) {
     }
   };
 };
-
-/*
-exports.environment = function (options) {
-  return {
-    plugins: [
-      new webpack.DefinePlugin({...options}),
-    ]
-  }
-};
-
-// Embed Fonts
 
 exports.setupFonts = function (paths) {
   return {
@@ -190,6 +229,18 @@ exports.setupImages = function (paths) {
     }
   }
 };
+
+/*
+exports.environment = function (options) {
+  return {
+    plugins: [
+      new webpack.DefinePlugin({...options}),
+    ]
+  }
+};
+
+// Embed Fonts
+
 
 
 // Extracts CSS from within modules into a separate CSS file

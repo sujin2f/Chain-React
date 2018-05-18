@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ReduxWrapper from 'ReduxWrapper';
-import { TextField } from 'material-ui';
+import TextField from 'material-ui/TextField';
+import ReduxWrapper from 'src/ReduxWrapper';
 
 const mapStateToProps = state => ({
   forms: state.forms,

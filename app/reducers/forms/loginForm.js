@@ -1,4 +1,4 @@
-import { CLEAR_FORM } from 'actions/forms/loginForm';
+import { CLEAR_FORM } from 'app/actions/forms/loginForm';
 
 const initialState = {};
 

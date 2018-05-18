@@ -8,6 +8,7 @@ class Link extends Component {
         to={this.props.href}
         id={this.props.id}
         className={this.props.className}
+        title={this.props.title}
       >
         {this.props.children}
       </ReactLink>

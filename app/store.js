@@ -5,8 +5,8 @@ import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import { persistReducer } from 'redux-persist';
 
-import rootReducer from 'reducers';
-import persistConfig from 'persistConfig';
+import rootReducer from './reducers';
+import persistConfig from './persistConfig';
 
 export const history = createHistory();
 
@@ -68,4 +68,3 @@ const configureStore = (initialState = {}) => {
 };
 
 export default configureStore;
-//  history;

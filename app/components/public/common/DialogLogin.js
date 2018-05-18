@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 
-import MaterialText from 'components/common/MaterialText';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
-import {
-  Dialog,
-  FlatButton,
-} from 'material-ui';
-
-import required from 'utils/validators';
+import MaterialText from 'app/components/common/MaterialText';
+import required from 'app/utils/validators';
 
 class DialogLogin extends Component {
   constructor(props) {
