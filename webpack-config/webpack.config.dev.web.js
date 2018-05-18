@@ -39,6 +39,6 @@ export default merge.smart(
     proxy: config.has('webpack-dev-server.proxy') ? config.get('webpack-dev-server.proxy') : undefined
   }),
   parts.setupCSS(destinations),
-  parts.setupFonts(destinations),
+  parts.setupFonts(path.resolve(destinations[0], 'assets', 'fonts')),
   parts.setupImages(path.resolve(destinations[0], 'assets', 'images'))
 );

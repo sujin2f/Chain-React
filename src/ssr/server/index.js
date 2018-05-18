@@ -6,12 +6,13 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import Helmet from 'react-helmet';
-import extendRequire from 'isomorphic-loader/lib/extend-require';
 
 import routes from 'src/components/routes';
 import App from 'src/components/App';
 
 import configureStore, { initializeSession } from './store';
+
+import manifest from '../../../build/manifest.json';
 
 const app = express();
 // const imagePath = path.resolve(__dirname, '../../../', process.env.npm_package_config_paths_app, 'assets', 'images');
@@ -41,6 +42,7 @@ app.get('/*', (req, res) => {
         </StaticRouter>
       </ReduxProvider>
     );
+
     const reactDom = renderToString(jsx);
     const reduxState = store.getState();
     const helmetData = Helmet.renderStatic();
@@ -70,8 +72,9 @@ function htmlTemplate(reactDom, reduxState, helmetData) {
       <script>
         window.REDUX_DATA = ${JSON.stringify(reduxState)}
       </script>
-      <script src="./app.bundle.js"></script>
-      <script src="./style.bundle.js"></script>
+      <script src="./${manifest['vendor.js']}"></script>
+      <script src="./${manifest['app.js']}"></script>
+      <script src="./${manifest['style.js']}"></script>
     </body>
     </html>
   `;

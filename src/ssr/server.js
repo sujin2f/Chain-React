@@ -6,7 +6,7 @@ require('babel-register')({
         src: './src/ssr',
         app: './app',
       },
-    }]
+    }],
   ],
 });
-require( "./server/index" );
+require('./server/index');

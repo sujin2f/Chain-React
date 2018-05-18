@@ -24,6 +24,6 @@ export default merge.smart(
   parts.setupLint(destinations),
   parts.setupBabel(destinations),
   parts.setupCSS(destinations),
-  parts.setupFonts(destinations),
+  parts.setupFonts(path.resolve(destinations[0], 'assets', 'fonts')),
   parts.setupImages(path.resolve(destinations[0], 'assets', 'images'))
 );

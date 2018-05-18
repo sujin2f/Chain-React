@@ -12,7 +12,9 @@ const destinations = [
 export default merge.smart(
   parts.setupBase(),
   parts.setupMinimize(),
-  parts.setupEntries(path.resolve(destinations[1], 'client', 'index.js')),
+  parts.setupEntries({
+    app: path.resolve(destinations[1], 'client', 'index.js'),
+  }),
   parts.setupResolves({
     app: destinations[0],
     src: destinations[1],

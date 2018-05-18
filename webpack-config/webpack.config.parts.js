@@ -9,6 +9,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import WebpackAssetsManifest from 'webpack-assets-manifest';
 import CompressionPlugin from 'compression-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const dev = process.env.NODE_ENV !== "production";
 
@@ -19,11 +20,18 @@ exports.setupBase = function() {
     cache: !dev,
     output: {
       path: path.resolve(__dirname, '../', process.env.npm_package_config_paths_output),
-      filename: '[name].bundle.js'
+      filename: '[name].[hash].js',
+      chunkFilename: '[id].js',
     },
     plugins: [
+      new CleanWebpackPlugin(
+        path.resolve(__dirname, '../', process.env.npm_package_config_paths_output),
+        {
+          root: path.resolve(__dirname, '../'),
+        }
+      ),
       new webpack.EnvironmentPlugin({
-        NODE_ENV: process.env.NODE_ENV
+        NODE_ENV: process.env.NODE_ENV ? process.env.NODE_ENV : 'development',
       }),
         new webpack.DefinePlugin({
         'process.env': {
@@ -67,7 +75,23 @@ exports.setupMinimize = function() {
           },
           sourceMap: dev
         })
-      ]
+      ],
+      splitChunks: {
+        chunks: "async",
+        minSize: 30000,
+        minChunks: 1,
+        maxAsyncRequests: 5,
+        maxInitialRequests: 3,
+        automaticNameDelimiter: '~',
+        name: true,
+        cacheGroups: {
+          commons: {
+            name: "vendor",
+            chunks: "initial",
+            minChunks: Infinity
+          }
+        }
+      }
     }
   };
 };
@@ -134,7 +158,10 @@ exports.setupFavicon = function(logo) {
 
 exports.setupEntries = function(paths) {
   return {
-    entry: paths,
+    entry: {
+      ...paths,
+      vendor: ['react', 'react-router', 'redux', 'react-redux', 'react-dom', 'react-router-redux', 'redux-form'],
+    },
   }
 };
 
@@ -173,7 +200,7 @@ exports.setupBabel = function(include) {
           use: [{
             loader: 'babel-loader',
             options: {
-              cacheDirectory: true
+              cacheDirectory: true,
             }
           }],
           include,
